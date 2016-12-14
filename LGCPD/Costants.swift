@@ -12,8 +12,8 @@ public struct Constants{
 //    static final int DATABASE_VERSION = 1;
 //    
     
-//    static var BASE_URL = "http://api.dev/public/";
-    static var BASE_URL = "http://sanzay.com.np/lgcpd/public/"
+    static var BASE_URL = "http://api.dev/public/";
+//    static var BASE_URL = "http://sanzay.com.np/lgcpd/public/"
     
 //    public static String LOGIN_URL = BASE_URL + "login";
     
