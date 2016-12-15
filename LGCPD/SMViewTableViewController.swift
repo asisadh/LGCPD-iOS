@@ -23,7 +23,8 @@ class SMViewTableViewController: UITableViewController {
     
     var sm = Array<SM>()
     var json: [AnyObject]!
-    var district: String!
+    var value: String!
+    var location: String!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,9 +54,29 @@ class SMViewTableViewController: UITableViewController {
     
     private func getDataForList(){
         
-        let url=URL(string: Constants.SM_API + "district/" + district)
+        sm.removeAll()
         
-        if let data = try? Data(contentsOf: url!){
+        print("Location: ",location)
+        print("Value: ",value)
+        
+        if (self.location == "district"){
+            print(Constants.SM_API + location + "/" + value)
+            let url=URL(string: Constants.SM_API + location + "/" + value)
+            dataForArray(url: url!)
+        
+        }
+        
+        if(self.location == "munic"){
+            print(Constants.SM_API + location + "/" + value)
+            let url=URL(string: Constants.SM_API + location + "/" + value)
+            dataForArray(url: url!)
+        }
+    }
+    
+    private func dataForArray(url: URL){
+        
+        
+        if let data = try? Data(contentsOf: url){
             do{
                 json = try JSONSerialization.jsonObject(with: data, options: [] ) as? Array
             } catch {
@@ -75,9 +96,6 @@ class SMViewTableViewController: UITableViewController {
                 }
                 
             }
-            
-            print("SM \(sm)")
-            
         }
     }
     
