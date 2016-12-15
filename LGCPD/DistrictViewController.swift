@@ -11,6 +11,7 @@ import UIKit
 class DistrictViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var segmentControl: UISegmentedControl!
     
     var actionButton: ActionButton!
     
@@ -18,6 +19,7 @@ class DistrictViewController: UIViewController, UITableViewDelegate, UITableView
     var json: [AnyObject]!
     
     var location: String!
+    var method: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +45,7 @@ class DistrictViewController: UIViewController, UITableViewDelegate, UITableView
         }
         
         location = "district"
+        method = "sm"
         
         let district = ActionButtonItem(title: "District", image: #imageLiteral(resourceName: "place"))
         district.action = { item in self.setLocation(location: "district") }
@@ -55,13 +58,13 @@ class DistrictViewController: UIViewController, UITableViewDelegate, UITableView
         //actionButton.setTitle("⌆", forState: UIControlState())
         actionButton.setImage(#imageLiteral(resourceName: "menu-w"), forState: UIControlState())
         
-        //actionButton.backgroundColor = UIColor(red: 238.0/255.0, green: 130.0/255.0, blue: 34.0/255.0, alpha:1.0)
+        actionButton.backgroundColor = UIColor.blue
         
     }
     
     private func getDataForList(){
         district.removeAll()
-        let url=URL(string: Constants.SM_URL_LIST + location)
+        let url=URL(string: Constants.SM_URL_LIST + location )
         if let data = try? Data(contentsOf: url!){
             do{
                 json = try JSONSerialization.jsonObject(with: data, options: [] ) as? Array
@@ -85,6 +88,7 @@ class DistrictViewController: UIViewController, UITableViewDelegate, UITableView
                 let controller = segue.destination as! SMViewTableViewController
                 controller.value = district[indexPath.row]
                 controller.location = self.location
+                controller.method = self.method
             }
         }
     }
@@ -120,5 +124,17 @@ class DistrictViewController: UIViewController, UITableViewDelegate, UITableView
         self.tableView.reloadData()
         actionButton.toggleMenu()
         
+    }
+    @IBAction func segmentChanged(_ sender: UISegmentedControl) {
+        switch segmentControl.selectedSegmentIndex
+        {
+            case 0:
+                self.method = "sm";
+            case 1:
+                self.method = "lsp";
+            default:
+                break; 
+        }
+        print(method)
     }
 }

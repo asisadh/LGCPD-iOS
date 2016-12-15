@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--LGCPD-->
+        <!--District View Controller-->
         <scene sceneID="tW5-tj-2ZE">
             <objects>
                 <viewController id="t4o-AF-c2O" customClass="DistrictViewController" customModule="LGCPD" customModuleProvider="target" sceneMemberID="viewController">
@@ -19,16 +19,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="f0l-9G-V1D">
-                                <frame key="frameInset" width="375" height="667"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="f0l-9G-V1D">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LabelCell" id="g5w-13-6d8">
                                         <rect key="frame" x="0.0" y="92" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="g5w-13-6d8" id="q3z-aO-4H5">
-                                            <frame key="frameInset" width="375" height="43.5"/>
+                                            <frame key="frameInset" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                         <connections>
@@ -39,9 +37,29 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="f0l-9G-V1D" secondAttribute="trailing" id="Pga-WI-kSk"/>
+                            <constraint firstItem="f0l-9G-V1D" firstAttribute="top" secondItem="Imz-Mh-cv1" secondAttribute="top" id="V63-a1-DIU"/>
+                            <constraint firstItem="f0l-9G-V1D" firstAttribute="bottom" secondItem="gI3-rl-Gh2" secondAttribute="top" id="ccm-gT-plU"/>
+                            <constraint firstItem="f0l-9G-V1D" firstAttribute="leading" secondItem="Imz-Mh-cv1" secondAttribute="leading" id="ssB-cg-wCO"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="LGCPD" id="UPC-8Q-qLg"/>
+                    <navigationItem key="navigationItem" id="UPC-8Q-qLg">
+                        <nil key="title"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="6yD-1j-UpV">
+                            <rect key="frame" x="113" y="7" width="150" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="SM"/>
+                                <segment title="LSP"/>
+                            </segments>
+                            <connections>
+                                <action selector="segmentChanged:" destination="t4o-AF-c2O" eventType="valueChanged" id="vck-hG-XxM"/>
+                            </connections>
+                        </segmentedControl>
+                    </navigationItem>
                     <connections>
+                        <outlet property="segmentControl" destination="6yD-1j-UpV" id="Xnu-Mr-jQa"/>
                         <outlet property="tableView" destination="f0l-9G-V1D" id="6oA-cg-hdA"/>
                     </connections>
                 </viewController>

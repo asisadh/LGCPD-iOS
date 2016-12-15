@@ -23,8 +23,16 @@ class SMViewTableViewController: UITableViewController {
     
     var sm = Array<SM>()
     var json: [AnyObject]!
+    
+    /**
+     * value -> name of the Disstrict or Municipality
+     * location -> District / Municipality
+     * method -> SM / LSP
+     */
+    
     var value: String!
     var location: String!
+    var method: String!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,25 +63,48 @@ class SMViewTableViewController: UITableViewController {
     private func getDataForList(){
         
         sm.removeAll()
+        var url_str: String = ""
         
         print("Location: ",location)
         print("Value: ",value)
+        print("method: ",method)
         
-        if (self.location == "district"){
-            print(Constants.SM_API + location + "/" + value)
-            let url=URL(string: Constants.SM_API + location + "/" + value)
-            dataForArray(url: url!)
+        if ( self.method == "sm"){
+            if (self.location == "district"){
+                print(Constants.API + method + "/" + location + "/" + value)
+                url_str = Constants.API + method + "/" + location + "/" + value
+                let url = URL(string: url_str)
+                dataForSM(url: url!)
+                
+            }
+            
+            if(self.location == "munic"){
+                print(Constants.API + method + "/" + location + "/" + value)
+                url_str = Constants.API + method + "/" + location + "/" + value
+                let url = URL(string: url_str)
+                dataForSM(url: url!)
+            }
         
-        }
+        }else{
+            if (self.location == "district"){
+                print(Constants.API + method + "/" + location + "/" + value)
+                url_str = Constants.API + method + "/" + location + "/" + value
+                let url = URL(string: url_str)
+                dataForLSP(url: url!)
+                
+            }
+            
+            if(self.location == "munic"){
+                print(Constants.API + method + "/" + location + "/" + value)
+                url_str = Constants.API + method + "/" + location + "/" + value
+                let url = URL(string: url_str)
+                dataForLSP(url: url!)
+            }
         
-        if(self.location == "munic"){
-            print(Constants.SM_API + location + "/" + value)
-            let url=URL(string: Constants.SM_API + location + "/" + value)
-            dataForArray(url: url!)
         }
     }
     
-    private func dataForArray(url: URL){
+    private func dataForSM(url: URL){
         
         
         if let data = try? Data(contentsOf: url){
@@ -99,12 +130,38 @@ class SMViewTableViewController: UITableViewController {
         }
     }
     
+    private func dataForLSP(url: URL){
+        
+        
+        if let data = try? Data(contentsOf: url){
+            do{
+                json = try JSONSerialization.jsonObject(with: data, options: [] ) as? Array
+            } catch {
+                print(error)
+            }
+            
+            if(json.count != 0){
+                for index in 0...json.count-1{
+                    if let item = json[index] as? [String: AnyObject] {
+                        sm.append( SM(id: item["id"] as! String,
+                                      name: item["name"] as! String,
+                                      address: item["contact_email"] as! String,
+                                      phone: item["office_phone"] as! String,
+                                      vdc: item["address"] as! String)
+                        )
+                    }
+                }
+                
+            }
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             if let indexPath = self.tableView.indexPathForSelectedRow{
                 let controller = segue.destination as! DetailViewController
                 controller.id = sm[indexPath.row].id
-                print("this is ID",sm[indexPath.row].id)
+                controller.method = self.method
             }
         }
     }

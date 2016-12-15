@@ -19,8 +19,9 @@ public struct Constants{
     
     static var SM_URL_LIST = BASE_URL + "api/list/";
 //    
-    static var SM_API = BASE_URL + "api/sm/";
+    static var API = BASE_URL + "api/";
     static var SM_DETAIL_API = BASE_URL + "api/detail/sm/";
+    static var LSP_DETAIL_API = BASE_URL + "api/detail/lsp/";
 //    
 //    public static String LSP_API = BASE_URL + "api/lsp/";
 //    public static String LSP_DETAIL_API = BASE_URL + "api/detail/lsp/";
