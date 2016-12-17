@@ -16,7 +16,7 @@ struct SM{
     var vdc: String
 }
 
-class SMViewTableViewController: UITableViewController {
+class TableViewController: UITableViewController {
     
     let indicator:UIActivityIndicatorView = UIActivityIndicatorView  (activityIndicatorStyle: UIActivityIndicatorViewStyle.white)
     
@@ -181,7 +181,7 @@ class SMViewTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell( withIdentifier: "LabelCell",for: indexPath) as! SMListTableViewCell
+        let cell = tableView.dequeueReusableCell( withIdentifier: "LabelCell",for: indexPath) as! ListTableViewCell
        
         cell.name.text = sm[indexPath.row].name
         cell.address.text = sm[indexPath.row].address

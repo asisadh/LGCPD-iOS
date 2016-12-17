@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SMListTableViewCell: UITableViewCell {
+class ListTableViewCell: UITableViewCell {
 
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var address: UILabel!

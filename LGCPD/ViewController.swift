@@ -8,17 +8,21 @@
 
 import UIKit
 
-class DistrictViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segmentControl: UISegmentedControl!
     
     var actionButton: ActionButton!
     
-    var district = [String]()
+    // place here is either name or district or name of municipalities
+    var place = [String]()
     var json: [AnyObject]!
     
+    // location defines either district or Municipalities are selected
     var location: String!
+    
+    //method defines are we searching sm or lsp
     var method: String!
     
     override func viewDidLoad() {
@@ -38,7 +42,7 @@ class DistrictViewController: UIViewController, UITableViewDelegate, UITableView
             self.getDataForList()
             
             DispatchQueue.main.async {
-                print("District \(self.district)")
+                print("District \(self.place)")
                 self.tableView.reloadData()
                 progressHUD.hide()
             }
@@ -63,7 +67,7 @@ class DistrictViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     private func getDataForList(){
-        district.removeAll()
+        place.removeAll()
         let url=URL(string: Constants.SM_URL_LIST + location )
         if let data = try? Data(contentsOf: url!){
             do{
@@ -74,7 +78,7 @@ class DistrictViewController: UIViewController, UITableViewDelegate, UITableView
             
             for index in 0...json.count-1{
                 if let item = json[index] as? [String: AnyObject] {
-                    district.append(item["name_en"] as! String)
+                    place.append(item["name_en"] as! String)
                 }
                 
             }
@@ -85,8 +89,8 @@ class DistrictViewController: UIViewController, UITableViewDelegate, UITableView
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showList" {
             if let indexPath = self.tableView.indexPathForSelectedRow{
-                let controller = segue.destination as! SMViewTableViewController
-                controller.value = district[indexPath.row]
+                let controller = segue.destination as! TableViewController
+                controller.value = place[indexPath.row]
                 controller.location = self.location
                 controller.method = self.method
             }
@@ -100,14 +104,14 @@ class DistrictViewController: UIViewController, UITableViewDelegate, UITableView
     
     // number of rows in table view
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return district.count
+        return place.count
     }
     
     // create a cell for each table view row
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath)
         
-        cell.textLabel?.text = self.district[indexPath.row]
+        cell.textLabel?.text = self.place[indexPath.row]
         
         return cell
     }
