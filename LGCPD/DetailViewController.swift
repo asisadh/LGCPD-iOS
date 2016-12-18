@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import CoreData
 
 struct DetailSM{
+    var id: String
     var name: String
     var address: String
     var email: String
@@ -28,6 +30,7 @@ struct DetailSM{
 }
 
 struct DetailLSP{
+    var id: String
     var name: String
     var address: String
     var officePhone: String
@@ -108,7 +111,8 @@ class DetailViewController: UIViewController {
             let data = try Data(contentsOf: url!)
             let json = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as! [String : AnyObject]
             print (json["name"])
-            detailSM = DetailSM(name: json["name"] as! String,
+            detailSM = DetailSM(id: json["id"] as! String,
+                                name: json["name"] as! String,
                                 address: json["address"] as! String,
                                 email: json["email"] as! String,
                                 phone: json["phone"] as! String,
@@ -139,7 +143,8 @@ class DetailViewController: UIViewController {
             let data = try Data(contentsOf: url!)
             let json = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as! [String : AnyObject]
             
-            detailLSP = DetailLSP(name: json["name"] as! String,
+            detailLSP = DetailLSP(id: json["id"] as! String,
+                                  name: json["name"] as! String,
                                   address: json["address"] as! String,
                                   officePhone: json["office_phone"] as! String,
                                   contactPerson: json["contact_person"] as! String,
@@ -267,5 +272,53 @@ class DetailViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    @IBAction func backToList(_ sender: UIBarButtonItem) {
+        self.dismiss(animated: true, completion: nil)
+    }
 
+    @IBAction func addToDatabase(_ sender: UIBarButtonItem) {
+        storeTranscription()
+    }
+    
+    func getContext () -> NSManagedObjectContext {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        return appDelegate.persistentContainer.viewContext
+    }
+    
+    func storeTranscription () {
+        let context = getContext()
+        
+        //retrieve the entity that we just created
+        let entity =  NSEntityDescription.entity(forEntityName: "SMDetail", in: context)
+        
+        let transc = NSManagedObject(entity: entity!, insertInto: context)
+        
+        //set the entity values
+        transc.setValue(self.detailSM?.id, forKey: "id")
+        transc.setValue(self.detailSM?.name, forKey: "name")
+        transc.setValue(self.detailSM?.email, forKey: "email")
+        transc.setValue(self.detailSM?.phone, forKey: "phone")
+        transc.setValue(self.detailSM?.lsp, forKey: "lsp")
+        transc.setValue(self.detailSM?.hired, forKey: "hired")
+        transc.setValue(self.detailSM?.vdc, forKey: "vdc")
+        transc.setValue(self.detailSM?.sex, forKey: "sex")
+        transc.setValue(self.detailSM?.dalit, forKey: "dalit")
+        transc.setValue(self.detailSM?.janajati, forKey: "janajati")
+        transc.setValue(self.detailSM?.dag, forKey: "dag")
+        transc.setValue(self.detailSM?.education, forKey: "education")
+        transc.setValue(self.detailSM?.workExperience, forKey: "work_experience")
+        transc.setValue(self.detailSM?.belongTo, forKey: "belong_to")
+        transc.setValue(self.detailSM?.training, forKey: "training")
+        transc.setValue(self.detailSM?.remark, forKey: "remark")
+        
+        //save the object
+        do {
+            try context.save()
+            print("saved!")
+        } catch let error as NSError  {
+            print("Could not save \(error), \(error.userInfo)")
+        } catch {
+            
+        }
+    }
 }

@@ -157,11 +157,22 @@ class TableViewController: UITableViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showDetail" {
+        print("Is segue is even called ?")
+       if segue.identifier == "showDetail"  {
+            print("I'm here at segue")
             if let indexPath = self.tableView.indexPathForSelectedRow{
-                let controller = segue.destination as! DetailViewController
-                controller.id = sm[indexPath.row].id
-                controller.method = self.method
+                print("I'm here at index path")
+                if let navController = segue.destination as? UINavigationController {
+                    print("I'm here outside")
+                    if let controller = navController.topViewController as? DetailViewController {
+                        controller.id = sm[indexPath.row].id
+                        controller.method = self.method
+                        print("id :",sm[indexPath.row].id)
+                        print("method :",method)
+                        print("I'm here inside")
+                    }
+                }
+            
             }
         }
     }

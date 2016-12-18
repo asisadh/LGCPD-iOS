@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		6B27A6EE1E019ADF00625CC8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B27A6ED1E019ADF00625CC8 /* ViewController.swift */; };
 		6B8F9DC41DFFB95100791A86 /* ProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8F9DC31DFFB95100791A86 /* ProgressHUD.swift */; };
+		6B974E4A1E0588330061E154 /* LGCPD.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6B974E481E0588330061E154 /* LGCPD.xcdatamodeld */; };
+		6B974E6D1E05A31C0061E154 /* OfflineListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B974E6C1E05A31C0061E154 /* OfflineListViewController.swift */; };
 		6BC0419F1DF94F5200784684 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC0419E1DF94F5200784684 /* AppDelegate.swift */; };
 		6BC041A41DF94F5200784684 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6BC041A21DF94F5200784684 /* Main.storyboard */; };
 		6BC041A61DF94F5200784684 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6BC041A51DF94F5200784684 /* Assets.xcassets */; };
@@ -24,6 +26,8 @@
 /* Begin PBXFileReference section */
 		6B27A6ED1E019ADF00625CC8 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		6B8F9DC31DFFB95100791A86 /* ProgressHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressHUD.swift; sourceTree = "<group>"; };
+		6B974E491E0588330061E154 /* LGCPD.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LGCPD.xcdatamodel; sourceTree = "<group>"; };
+		6B974E6C1E05A31C0061E154 /* OfflineListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfflineListViewController.swift; sourceTree = "<group>"; };
 		6BC0419B1DF94F5200784684 /* LGCPD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LGCPD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BC0419E1DF94F5200784684 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6BC041A31DF94F5200784684 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -69,8 +73,10 @@
 			isa = PBXGroup;
 			children = (
 				6BC0419E1DF94F5200784684 /* AppDelegate.swift */,
+				6B974E481E0588330061E154 /* LGCPD.xcdatamodeld */,
 				6BDBBE3A1DFC1A2A00F1F212 /* DetailViewController.swift */,
 				6BC041A21DF94F5200784684 /* Main.storyboard */,
+				6B974E6C1E05A31C0061E154 /* OfflineListViewController.swift */,
 				6BF2874D1E024BCA007196D2 /* ActionButton */,
 				6B27A6ED1E019ADF00625CC8 /* ViewController.swift */,
 				6BC041B41DF9AB0C00784684 /* ListTableViewCell.swift */,
@@ -174,7 +180,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				6BC041B31DF9A04500784684 /* TableViewController.swift in Sources */,
+				6B974E4A1E0588330061E154 /* LGCPD.xcdatamodeld in Sources */,
 				6BC041B11DF976E500784684 /* Costants.swift in Sources */,
+				6B974E6D1E05A31C0061E154 /* OfflineListViewController.swift in Sources */,
 				6BF2874A1E024B81007196D2 /* ActionButtonItem.swift in Sources */,
 				6BDBBE3B1DFC1A2A00F1F212 /* DetailViewController.swift in Sources */,
 				6B27A6EE1E019ADF00625CC8 /* ViewController.swift in Sources */,
@@ -346,6 +354,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		6B974E481E0588330061E154 /* LGCPD.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				6B974E491E0588330061E154 /* LGCPD.xcdatamodel */,
+			);
+			currentVersion = 6B974E491E0588330061E154 /* LGCPD.xcdatamodel */;
+			path = LGCPD.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 6BC041931DF94F5200784684 /* Project object */;
 }
